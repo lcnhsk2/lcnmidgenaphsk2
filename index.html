@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en" translate="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
+    <meta name="google" content="notranslate">
+    <title>📘 ASSA TP2025/2026 · 35 Soal Reading</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+        body {
+            font-family: 'Comic Neue', 'Segoe UI', cursive, sans-serif;
+            background: linear-gradient(145deg, #f9e7b2 0%, #ffd5a4 100%);
+            min-height: 100vh; display: flex; justify-content: center; align-items: center;
+            padding: 16px; position: relative; overflow-x: hidden;
+        }
+        body::before {
+            content: "⚔️🛡️"; font-size: 100px; position: absolute; top: 10px; left: 10px;
+            opacity: 0.15; transform: rotate(-10deg); pointer-events: none;
+        }
+        body::after {
+            content: "🐉🏰"; font-size: 120px; position: absolute; bottom: 10px; right: 10px;
+            opacity: 0.15; transform: rotate(5deg); pointer-events: none;
+        }
+        .container {
+            max-width: 1200px; width: 100%; background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(6px); border-radius: 60px; box-shadow: 0 20px 30px rgba(0,0,0,0.2),
+                0 0 0 8px #ffe28c, 0 0 0 12px #ffb882; padding: 24px 20px 30px; border: 4px solid #ffaa66;
+        }
+        .credit {
+            text-align: center; font-size: 1.3rem; font-weight: bold; color: #8b4513;
+            background: #ffe9c4; padding: 10px; border-radius: 40px; margin-bottom: 15px;
+            border: 3px solid #e0a56b; box-shadow: 0 5px 0 #b2723a;
+        }
+        .identity-bar {
+            background: #d2f0d2; padding: 15px 20px; border-radius: 50px; margin-bottom: 20px;
+            border: 3px solid #4caf50; display: flex; flex-wrap: wrap; align-items: center;
+            justify-content: center; gap: 15px; font-size: 1.2rem; box-shadow: 0 6px 0 #357a38;
+        }
+        .identity-bar input {
+            padding: 10px 20px; font-size: 1.2rem; border-radius: 40px; border: 3px solid #fb8b67;
+            background: white; font-family: 'Comic Neue', cursive; outline: none; width: 250px;
+        }
+        .identity-bar button {
+            background: #fea1a1; border: none; padding: 10px 30px; border-radius: 40px;
+            font-size: 1.2rem; font-weight: bold; color: white; border-bottom: 5px solid #b15353;
+            cursor: pointer;
+        }
+        .identity-bar button:active { transform: translateY(3px); border-bottom-width: 2px; }
+        .player-info {
+            background: #feeac9; border-radius: 30px; padding: 8px 25px; font-size: 1.3rem;
+            border: 2px solid #d98f4c;
+        }
+        .header {
+            display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center;
+            background: #b0e0ff; padding: 16px 25px; border-radius: 50px; margin-bottom: 25px;
+            border: 3px solid #f08080; box-shadow: inset 0 -3px 0 #8ab3cf, 0 8px 0 #8b6b4d;
+            font-weight: bold;
+        }
+        .timer-box {
+            background: #2e1b0e; color: #f9e081; padding: 12px 24px; border-radius: 40px;
+            font-size: 1.7rem; font-family: 'Courier New', monospace; letter-spacing: 3px;
+            text-shadow: 0 2px 0 #b87c4b; box-shadow: 0 5px 0 #5a3e2b; border: 2px solid #f7c46e;
+        }
+        .per-question-timer {
+            background: #fea3aa; padding: 8px 20px; border-radius: 30px; color: white;
+            font-size: 1.4rem; border: 2px solid #fff0b5; box-shadow: 0 4px 0 #b45f5f;
+        }
+        .tabs { display: flex; gap: 20px; }
+        .tab {
+            background: #ffcf96; padding: 12px 35px; border-radius: 40px; font-size: 1.5rem;
+            font-weight: bold; color: #4b2e1a; cursor: pointer; border: 3px solid #fff5d0;
+            box-shadow: 0 7px 0 #b47c4d; transition: 0.1s; text-shadow: 0 1px 0 white;
+        }
+        .tab.active { background: #ffb156; box-shadow: 0 3px 0 #b47c4d; transform: translateY(4px); border-color: #ffeaa5; }
+        .question-area {
+            background: #fff9e6; border-radius: 70px; padding: 30px; border: 5px solid #ffc586;
+            box-shadow: inset 0 0 0 4px #ffe1b3, 0 15px 0 #b2814a; margin: 20px 0 30px;
+        }
+        .question-header {
+            display: flex; justify-content: space-between; align-items: center; background: #dbb88c;
+            border-radius: 40px; padding: 8px 25px; margin-bottom: 25px; color: white;
+            font-size: 1.4rem; border: 2px solid #ffda9e;
+        }
+        .question-text {
+            font-size: 1.5rem; background: #ffefd2; padding: 30px 25px; border-radius: 50px;
+            border: 3px dashed #ff9f5b; line-height: 1.6; color: #3f280e; margin-bottom: 30px;
+        }
+        .statement-text {
+            font-size: 1.3rem; background: #c9e4ff; padding: 15px 25px; border-radius: 40px;
+            border: 2px solid #6fa3d9; margin: 10px 0 20px; color: #143b5c;
+        }
+        .options {
+            display: flex; flex-direction: column; gap: 18px; margin: 20px 0;
+        }
+        .option {
+            background: #fef7d5; padding: 18px 25px; border-radius: 50px; border: 3px solid #c98f5e;
+            font-size: 1.3rem; display: flex; align-items: center; cursor: pointer;
+            box-shadow: 0 6px 0 #ab7c4d; transition: 0.15s;
+        }
+        .option:hover { background: #ffe5b4; transform: scale(1.01); }
+        .option.selected { background: #b0e57c; border-color: #4caf50; box-shadow: 0 4px 0 #2e7d32; transform: translateY(2px); color: #1d3c1d; }
+        .option input[type="radio"] {
+            appearance: none; width: 28px; height: 28px; background: white; border-radius: 50%;
+            border: 3px solid #d2691e; margin-right: 25px; cursor: pointer;
+        }
+        .option input[type="radio"]:checked { background: #ffae42; border-color: #aa4e1c; box-shadow: 0 0 0 3px #ffe68f; }
+        .image-options {
+            display: flex; justify-content: space-around; gap: 20px; flex-wrap: wrap; margin: 30px 0;
+        }
+        .image-option {
+            background: #feeac9; border: 5px solid #d9894b; border-radius: 60px; padding: 20px;
+            text-align: center; cursor: pointer; box-shadow: 0 10px 0 #aa6733; transition: 0.1s;
+            flex: 1 1 150px;
+        }
+        .image-option.selected { background: #c5e0b4; border-color: #548235; transform: translateY(5px); box-shadow: 0 5px 0 #3b5e1f; }
+        .image-option span { font-size: 5rem; display: block; line-height: 1.2; }
+        .image-option .letter { font-size: 2rem; font-weight: bold; color: #6b3f1c; margin-top: 10px; }
+        .nav-panel {
+            display: flex; justify-content: space-between; align-items: center; margin-top: 25px; flex-wrap: wrap; gap: 15px;
+        }
+        .question-nav {
+            display: flex; flex-wrap: wrap; gap: 12px; background: #ffdcaa; padding: 15px 20px;
+            border-radius: 60px; border: 3px solid #ffb457;
+        }
+        .nav-btn {
+            background: #f0f0f0; border: 3px solid #cb7b3c; color: #4b2e1a; font-size: 1.5rem;
+            font-weight: bold; width: 55px; height: 55px; border-radius: 30px; cursor: pointer;
+            box-shadow: 0 5px 0 #9b6b3e;
+        }
+        .nav-btn:active { transform: translateY(4px); box-shadow: 0 1px 0 #9b6b3e; }
+        .nav-btn.active-question { background: #ffb156; border-color: #fff1b5; color: white; }
+        .action-btns { display: flex; gap: 15px; }
+        .action-btn {
+            background: #fea1a1; border: none; padding: 15px 35px; border-radius: 40px;
+            font-size: 1.4rem; font-weight: bold; color: white; border-bottom: 7px solid #b15353;
+            cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            opacity: 0.6;
+            pointer-events: none;
+        }
+        .action-btn.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .action-btn:active { border-bottom-width: 2px; transform: translateY(5px); }
+        .action-btn.submit { background: #6ecf8b; border-bottom-color: #2d7842; }
+        .report-card {
+            background: #fffcd1; border-radius: 60px; padding: 30px; border: 6px solid #f7b731;
+            margin-top: 30px; box-shadow: 0 15px 0 #c58f38;
+        }
+        .score-row {
+            display: flex; gap: 40px; justify-content: center; font-size: 2rem; flex-wrap: wrap;
+        }
+        .badge { background: #56b4e9; padding: 15px 30px; border-radius: 40px; color: white; box-shadow: 0 8px 0 #2a6b96; }
+        .review-btn {
+            background: #f2c94c; border: none; padding: 15px 35px; border-radius: 40px;
+            font-size: 1.4rem; font-weight: bold; border-bottom: 7px solid #b47d26; cursor: pointer; margin-top: 20px;
+        }
+        .hidden { display: none; }
+        .review-list {
+            max-height: 400px; overflow-y: auto; background: #f3e1c2; border-radius: 40px;
+            padding: 20px; margin-top: 20px; border: 3px solid #e3a56d;
+        }
+        .review-item {
+            background: #fff4dd; padding: 15px; border-radius: 30px; margin-bottom: 15px;
+            border-left: 15px solid #ff7f7f;
+        }
+        .footer { text-align: center; margin-top: 30px; color: #8b5a2b; }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body oncontextmenu="return false" onselectstart="return false" oncopy="return false" oncut="return false" onpaste="return false" ondragstart="return false">
+<div class="container" id="app">
+    <div class="credit">⚡ by lcnpalembang-08994477988 ⚡</div>
+    <div class="identity-bar">
+        <span>👤 Nama/Nomor:</span>
+        <input type="text" id="playerIdInput" placeholder="Masukkan nama atau nomor" value="">
+        <button id="setPlayerBtn">Simpan</button>
+        <span class="player-info" id="playerDisplay">Belum diisi</span>
+    </div>
+
+    <div class="header">
+        <div class="timer-box" id="globalTimer">45:00</div>
+        <div class="per-question-timer" id="questionTimer">01:00</div>
+        <div class="tabs">
+            <div class="tab active" id="tabReading">📖 Reading (1-35)</div>
+        </div>
+    </div>
+
+    <div id="questionArea" class="question-area"></div>
+
+    <div class="nav-panel">
+        <div class="question-nav" id="questionNav"></div>
+        <div class="action-btns">
+            <button class="action-btn" id="prevBtn">◀ Sebelumnya</button>
+            <button class="action-btn" id="nextBtn">Selanjutnya ▶</button>
+            <button class="action-btn submit" id="submitBtn" disabled>✅ Submit</button>
+        </div>
+    </div>
+
+    <div id="reportSection" class="report-card hidden">
+        <h2 style="text-align:center; color:#4f2f0e;">📋 Laporan Hasil</h2>
+        <div id="playerReport" style="text-align:center; font-size:1.5rem; background:#ffeac2; border-radius:40px; padding:10px; margin-bottom:20px;"></div>
+        <div class="score-row">
+            <div class="badge" id="readingScore">Reading: 0/35</div>
+            <div class="badge" id="totalScore">Total: 0/35</div>
+        </div>
+        <button class="review-btn" id="reviewBtn">🔍 Review Jawaban Salah</button>
+        <div id="reviewDetails" class="review-list hidden"></div>
+        <button class="review-btn" id="closeReportBtn" style="background:#b0b0b0;">Tutup Laporan</button>
+    </div>
+
+    <div class="footer">⚡ Ragnarok kartun · ASSA TP2025/2026 ⚡</div>
+</div>
+
+<script>
+(function() {
+    // ===================== FUNGSI PENGACAKAN =====================
+    function shuffleArray(arr) {
+        for (let i = arr.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [arr[i], arr[j]] = [arr[j], arr[i]];
+        }
+        return arr;
+    }
+
+    // Acak opsi dan sesuaikan correct
+    function shuffleOptions(question) {
+        if (question.type === 'image-choice' || question.type === 'mc6' || question.type === 'tf' || question.type === 'match') {
+            const opts = question.options.slice();
+            const correctIndex = question.correct.charCodeAt(0) - 65; // 0-based index
+            const correctValue = opts[correctIndex];
+            shuffleArray(opts);
+            const newCorrectIndex = opts.indexOf(correctValue);
+            question.options = opts;
+            question.correct = String.fromCharCode(65 + newCorrectIndex);
+        }
+        // Untuk image-choice dengan emoji, sama
+    }
+
+    // ===================== DATA SOAL AWAL (berdasarkan gambar) =====================
+    const rawQuestions = [
+        // 1-5: image-choice (pilih gambar)
+        { id: 1, type: 'image-choice', question: '非常欢迎你！', options: ['👋', '🤝', '🙅'], correct: 'A' },
+        { id: 2, type: 'image-choice', question: '我每天早上都看报纸。', options: ['📰', '📺', '📚'], correct: 'A' },
+        { id: 3, type: 'image-choice', question: '他正在跑步。', options: ['🏃', '🚶', '🚴'], correct: 'A' },
+        { id: 4, type: 'image-choice', question: '她喜欢吃苹果。', options: ['🍎', '🍌', '🍇'], correct: 'A' },
+        { id: 5, type: 'image-choice', question: '我们在等公交车。', options: ['🚌', '🚗', '🚲'], correct: 'A' },
+
+        // 6-15: isian kata (mc6)
+        { id: 6, type: 'mc6', question: '每个周末我都喜欢和朋友一起去（ ）。', options: ['A 课', 'B 鸡蛋', 'C 希望', 'D 唱歌', 'E 帮助', 'F 事情'], correct: 'D' },
+        { id: 7, type: 'mc6', question: '明天的（ ）我都准备好了，可以睡觉了。', options: ['A 课', 'B 鸡蛋', 'C 希望', 'D 唱歌', 'E 帮助', 'F 事情'], correct: 'A' },
+        { id: 8, type: 'mc6', question: '我每天早上吃一个（ ），喝一杯牛奶。', options: ['A 课', 'B 鸡蛋', 'C 希望', 'D 唱歌', 'E 帮助', 'F 事情'], correct: 'B' },
+        { id: 9, type: 'mc6', question: '我（ ）明天是晴天。', options: ['A 课', 'B 鸡蛋', 'C 希望', 'D 唱歌', 'E 帮助', 'F 事情'], correct: 'C' },
+        { id: 10, type: 'mc6', question: '他经常（ ）别人。', options: ['A 课', 'B 鸡蛋', 'C 希望', 'D 唱歌', 'E 帮助', 'F 事情'], correct: 'E' },
+        { id: 11, type: 'mc6', question: '你找我有（ ）吗？', options: ['A 课', 'B 鸡蛋', 'C 希望', 'D 唱歌', 'E 帮助', 'F 事情'], correct: 'F' },
+        { id: 12, type: 'mc6', question: '这个（ ）很难。', options: ['A 课', 'B 鸡蛋', 'C 希望', 'D 唱歌', 'E 帮助', 'F 事情'], correct: 'A' },
+        { id: 13, type: 'mc6', question: '我想（ ）你能来。', options: ['A 课', 'B 鸡蛋', 'C 希望', 'D 唱歌', 'E 帮助', 'F 事情'], correct: 'C' },
+        { id: 14, type: 'mc6', question: '我们一起去（ ）吧。', options: ['A 课', 'B 鸡蛋', 'C 希望', 'D 唱歌', 'E 帮助', 'F 事情'], correct: 'D' },
+        { id: 15, type: 'mc6', question: '我需要你的（ ）。', options: ['A 课', 'B 鸡蛋', 'C 希望', 'D 唱歌', 'E 帮助', 'F 事情'], correct: 'E' },
+
+        // 16-20: benar/salah (tf)
+        { id: 16, type: 'tf', question: '哥哥汉语比我好，姐姐的汉语也比我好。', statement: '我的汉语没有哥哥和姐姐那么好。', options: ['正确', '错误'], correct: '正确' },
+        { id: 17, type: 'tf', question: '这是儿子送给我的手表，因为明天是我的生日。', statement: '他送给儿子一块手表。', options: ['正确', '错误'], correct: '错误' },
+        { id: 18, type: 'tf', question: '那件白色的衣服我帮你洗了，在外面呢。', statement: '衣服在外面。', options: ['正确', '错误'], correct: '正确' },
+        { id: 19, type: 'tf', question: '我每天早上喝牛奶。', statement: '我从来不喝牛奶。', options: ['正确', '错误'], correct: '错误' },
+        { id: 20, type: 'tf', question: '他在教室学习。', statement: '他在家。', options: ['正确', '错误'], correct: '错误' },
+
+        // 21-25: memilih tanya jawab (match)
+        { id: 21, type: 'match', question: '你找大卫有什么事吗？', options: ['A 非常好，我想明年再来一次。', 'B 爸爸，明天我们一起去跑步吧。', 'C 听说他生病了，我想去医院看看他。', 'D 家里还有呢，来点儿水果吧。', 'E 他还在教室里学习。'], correct: 'C' },
+        { id: 22, type: 'match', question: '第一次来北京吧？北京漂亮吗？', options: ['A 非常好，我想明年再来一次。', 'B 爸爸，明天我们一起去跑步吧。', 'C 听说他生病了，我想去医院看看他。', 'D 家里还有呢，来点儿水果吧。', 'E 他还在教室里学习。'], correct: 'A' },
+        { id: 23, type: 'match', question: '他还在教室里学习吗？', options: ['A 非常好，我想明年再来一次。', 'B 爸爸，明天我们一起去跑步吧。', 'C 听说他生病了，我想去医院看看他。', 'D 家里还有呢，来点儿水果吧。', 'E 他还在教室里学习。'], correct: 'E' },
+        { id: 24, type: 'match', question: '要不要吃点水果？', options: ['A 非常好，我想明年再来一次。', 'B 爸爸，明天我们一起去跑步吧。', 'C 听说他生病了，我想去医院看看他。', 'D 家里还有呢，来点儿水果吧。', 'E 他还在教室里学习。'], correct: 'D' },
+        { id: 25, type: 'match', question: '明天我们一起去跑步吧？', options: ['A 非常好，我想明年再来一次。', 'B 爸爸，明天我们一起去跑步吧。', 'C 听说他生病了，我想去医院看看他。', 'D 家里还有呢，来点儿水果吧。', 'E 他还在教室里学习。'], correct: 'B' },
+
+        // 26-30: menyusun kata (mc6 dengan opsi kalimat)
+        { id: 26, type: 'mc6', question: '我/喜欢/唱歌/和/朋友。 正确的句子是？', options: ['A 我和朋友喜欢唱歌。', 'B 我喜欢和朋友唱歌。', 'C 朋友和我喜欢唱歌。', 'D 我喜欢唱歌和朋友。'], correct: 'B' },
+        { id: 27, type: 'mc6', question: '明天/去/我/北京/要。 正确的句子是？', options: ['A 我明天要去北京。', 'B 明天我要去北京。', 'C 要去我明天北京。', 'D 我要明天去北京。'], correct: 'A' },
+        { id: 28, type: 'mc6', question: '她/每天/喝/牛奶/早上。 正确的句子是？', options: ['A 她每天早上喝牛奶。', 'B 她喝牛奶每天早上。', 'C 每天早上她喝牛奶。', 'D 她每天喝牛奶早上。'], correct: 'A' },
+        { id: 29, type: 'mc6', question: '这/是/书/我的。 正确的句子是？', options: ['A 这是我的书。', 'B 这是书我的。', 'C 我这是书。', 'D 书这是我的。'], correct: 'A' },
+        { id: 30, type: 'mc6', question: '他/在/教室/学习。 正确的句子是？', options: ['A 他在教室学习。', 'B 他在学习教室。', 'C 教室他在学习。', 'D 学习他在教室。'], correct: 'A' },
+
+        // 31-35: menulis hanzi dari pinyin (mc6)
+        { id: 31, type: 'mc6', question: 'Youbian (右边) 的正确汉字是？', options: ['A 右边', 'B 左边', 'C 上边', 'D 下边'], correct: 'A' },
+        { id: 32, type: 'mc6', question: 'Xigua (西瓜) 的正确汉字是？', options: ['A 西瓜', 'B 苹果', 'C 香蕉', 'D 葡萄'], correct: 'A' },
+        { id: 33, type: 'mc6', question: '我第一次（ ）是在七岁的时候。', options: ['A 来', 'B 去', 'C 吃', 'D 看'], correct: 'A' },
+        { id: 34, type: 'mc6', question: '妈妈（ ）准备午饭呢。', options: ['A 正在', 'B 已经', 'C 马上', 'D 刚才'], correct: 'A' },
+        { id: 35, type: 'mc6', question: '别找了，（ ）在桌子上呢，电脑旁边。', options: ['A 手机', 'B 手表', 'C 电脑', 'D 书'], correct: 'A' }
+    ];
+
+    // Acak urutan soal dan opsi
+    let questions = shuffleArray(rawQuestions.slice());
+    questions.forEach(q => shuffleOptions(q));
+
+    // ===================== STATE =====================
+    let currentIndex = 0;
+    let answers = {};
+    let globalSecondsLeft = 2700; // 45 menit
+    let perQuestionSecondsLeft = 60;
+    let globalTimerInterval, perQuestionInterval;
+    let testSubmitted = false;
+    let playerName = '';
+
+    // DOM elements
+    const questionArea = document.getElementById('questionArea');
+    const questionNav = document.getElementById('questionNav');
+    const globalTimerEl = document.getElementById('globalTimer');
+    const questionTimerEl = document.getElementById('questionTimer');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const submitBtn = document.getElementById('submitBtn');
+    const reportSection = document.getElementById('reportSection');
+    const readingScoreEl = document.getElementById('readingScore');
+    const totalScoreEl = document.getElementById('totalScore');
+    const reviewBtn = document.getElementById('reviewBtn');
+    const reviewDetails = document.getElementById('reviewDetails');
+    const closeReportBtn = document.getElementById('closeReportBtn');
+    const playerIdInput = document.getElementById('playerIdInput');
+    const setPlayerBtn = document.getElementById('setPlayerBtn');
+    const playerDisplay = document.getElementById('playerDisplay');
+    const playerReport = document.getElementById('playerReport');
+
+    setPlayerBtn.addEventListener('click', () => {
+        const val = playerIdInput.value.trim();
+        playerName = val || 'Tanpa Nama';
+        playerDisplay.textContent = playerName;
+    });
+
+    function getCurrentList() {
+        return questions;
+    }
+
+    function saveAnswer(id, value) {
+        if (testSubmitted) return;
+        answers[id] = value;
+        checkAllAnswered();
+    }
+
+    function getAnswer(id) {
+        return answers[id] || null;
+    }
+
+    function checkAllAnswered() {
+        const total = questions.length;
+        let answered = 0;
+        questions.forEach(q => { if (answers[q.id]) answered++; });
+        if (answered === total) {
+            submitBtn.classList.add('active');
+            submitBtn.disabled = false;
+        } else {
+            submitBtn.classList.remove('active');
+            submitBtn.disabled = true;
+        }
+    }
+
+    function updateGlobalTimerDisplay() {
+        const mins = Math.floor(globalSecondsLeft / 60);
+        const secs = globalSecondsLeft % 60;
+        globalTimerEl.textContent = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+    }
+
+    function renderQuestion() {
+        if (testSubmitted) return;
+        const list = getCurrentList();
+        if (!list.length) return;
+        const q = list[currentIndex];
+        const answer = getAnswer(q.id);
+
+        let header = `<div class="question-header"><span>Soal ${q.id}</span><span>📖 Reading</span></div>`;
+        let content = '';
+
+        if (q.type === 'image-choice') {
+            content += `<div class="question-text">${q.question}</div>`;
+            content += `<div class="image-options">`;
+            q.options.forEach((emoji, idx) => {
+                const letter = String.fromCharCode(65 + idx);
+                const sel = (answer === letter) ? 'selected' : '';
+                content += `<div class="image-option ${sel}" data-value="${letter}"><span>${emoji}</span><div class="letter">${letter}</div></div>`;
+            });
+            content += `</div>`;
+        }
+        else if (q.type === 'tf') {
+            content += `<div class="question-text">${q.question}</div>`;
+            content += `<div class="statement-text">★ ${q.statement}</div>`;
+            content += `<div class="options">`;
+            q.options.forEach((opt, idx) => {
+                const letter = String.fromCharCode(65 + idx);
+                const sel = (answer === letter) ? 'selected' : '';
+                content += `<div class="option ${sel}" data-value="${letter}"><input type="radio" name="q" value="${letter}" ${sel ? 'checked' : ''}><span>${opt}</span></div>`;
+            });
+            content += `</div>`;
+        }
+        else { // mc6 atau match
+            content += `<div class="question-text">${q.question}</div>`;
+            if (q.statement) content += `<div class="statement-text">★ ${q.statement}</div>`;
+            content += `<div class="options">`;
+            q.options.forEach((opt, idx) => {
+                const letter = String.fromCharCode(65 + idx);
+                const sel = (answer === letter) ? 'selected' : '';
+                content += `<div class="option ${sel}" data-value="${letter}"><input type="radio" name="q" value="${letter}" ${sel ? 'checked' : ''}><span>${opt}</span></div>`;
+            });
+            content += `</div>`;
+        }
+
+        questionArea.innerHTML = header + content;
+
+        // Event listener untuk pilihan
+        if (q.type === 'image-choice') {
+            document.querySelectorAll('.image-option').forEach(opt => {
+                opt.addEventListener('click', () => {
+                    if (testSubmitted) return;
+                    document.querySelectorAll('.image-option').forEach(el => el.classList.remove('selected'));
+                    opt.classList.add('selected');
+                    saveAnswer(q.id, opt.dataset.value);
+                });
+            });
+        } else {
+            document.querySelectorAll('.option').forEach(opt => {
+                opt.addEventListener('click', function() {
+                    if (testSubmitted) return;
+                    const radio = this.querySelector('input[type="radio"]');
+                    radio.checked = true;
+                    document.querySelectorAll('.option').forEach(el => el.classList.remove('selected'));
+                    this.classList.add('selected');
+                    saveAnswer(q.id, this.dataset.value);
+                });
+            });
+        }
+
+        renderNav();
+    }
+
+    function renderNav() {
+        const list = getCurrentList();
+        let html = '';
+        list.forEach((q, idx) => {
+            const active = (idx === currentIndex) ? 'active-question' : '';
+            html += `<button class="nav-btn ${active}" data-index="${idx}">${q.id}</button>`;
+        });
+        questionNav.innerHTML = html;
+        document.querySelectorAll('.nav-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                if (testSubmitted) return;
+                const idx = parseInt(btn.dataset.index);
+                if (!isNaN(idx) && idx >= 0 && idx < list.length) {
+                    currentIndex = idx;
+                    renderQuestion();
+                    resetPerQuestionTimer();
+                }
+            });
+        });
+    }
+
+    function startGlobalTimer() {
+        globalTimerInterval = setInterval(() => {
+            if (testSubmitted) return;
+            if (globalSecondsLeft > 0) {
+                globalSecondsLeft--;
+                updateGlobalTimerDisplay();
+            } else {
+                clearInterval(globalTimerInterval);
+                clearInterval(perQuestionInterval);
+                alert('⏰ Waktu habis! Silakan submit jawaban.');
+                submitQuiz();
+            }
+        }, 1000);
+    }
+
+    function resetPerQuestionTimer() {
+        if (testSubmitted) return;
+        perQuestionSecondsLeft = 60;
+        updatePerQuestionDisplay();
+        if (perQuestionInterval) clearInterval(perQuestionInterval);
+        perQuestionInterval = setInterval(() => {
+            if (testSubmitted) return;
+            perQuestionSecondsLeft--;
+            if (perQuestionSecondsLeft <= 0) {
+                perQuestionSecondsLeft = 0;
+                updatePerQuestionDisplay();
+                const list = getCurrentList();
+                if (currentIndex < list.length - 1) {
+                    currentIndex++;
+                    renderQuestion();
+                    resetPerQuestionTimer();
+                } else {
+                    clearInterval(perQuestionInterval);
+                }
+            } else {
+                updatePerQuestionDisplay();
+            }
+        }, 1000);
+    }
+
+    function updatePerQuestionDisplay() {
+        questionTimerEl.textContent = `00:${perQuestionSecondsLeft.toString().padStart(2, '0')}`;
+    }
+
+    function submitQuiz() {
+        if (testSubmitted) return;
+        testSubmitted = true;
+        clearInterval(globalTimerInterval);
+        clearInterval(perQuestionInterval);
+
+        let correctCount = 0;
+        questions.forEach(q => { if (answers[q.id] === q.correct) correctCount++; });
+
+        readingScoreEl.textContent = `Reading: ${correctCount}/35`;
+        totalScoreEl.textContent = `Total: ${correctCount}/35`;
+        playerReport.textContent = `Peserta: ${playerName || 'Belum diisi'}`;
+
+        questionArea.style.display = 'none';
+        questionNav.style.display = 'none';
+        prevBtn.style.display = 'none';
+        nextBtn.style.display = 'none';
+        submitBtn.style.display = 'none';
+        reportSection.classList.remove('hidden');
+
+        reviewBtn.onclick = () => {
+            let html = '<h3>❌ Jawaban Salah / Tidak Dijawab</h3>';
+            let hasWrong = false;
+            questions.forEach(q => {
+                const ans = answers[q.id];
+                if (!ans || ans !== q.correct) {
+                    hasWrong = true;
+                    html += `<div class="review-item"><strong>Soal ${q.id}</strong><br>Jawabanmu: ${ans || 'kosong'} | Seharusnya: ${q.correct}<br>${q.question.substring(0,60)}...</div>`;
+                }
+            });
+            if (!hasWrong) html += '<p>Semua jawaban benar! 🎉</p>';
+            reviewDetails.innerHTML = html;
+            reviewDetails.classList.toggle('hidden');
+        };
+
+        closeReportBtn.onclick = () => location.reload();
+    }
+
+    function init() {
+        renderQuestion();
+        startGlobalTimer();
+        resetPerQuestionTimer();
+        checkAllAnswered();
+
+        prevBtn.addEventListener('click', () => {
+            if (testSubmitted) return;
+            const list = getCurrentList();
+            if (currentIndex > 0) {
+                currentIndex--;
+                renderQuestion();
+                resetPerQuestionTimer();
+            }
+        });
+
+        nextBtn.addEventListener('click', () => {
+            if (testSubmitted) return;
+            const list = getCurrentList();
+            if (currentIndex < list.length - 1) {
+                currentIndex++;
+                renderQuestion();
+                resetPerQuestionTimer();
+            }
+        });
+
+        submitBtn.addEventListener('click', submitQuiz);
+    }
+
+    init();
+})();
+</script>
+</body>
+</html>
