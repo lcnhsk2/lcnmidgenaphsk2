@@ -1,0 +1,2 @@
+# lcnmidgenaphsk2
+LCN HSK2 LATIHAN STS GENAP MID SEMESTER
