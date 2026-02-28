@@ -1,260 +1,493 @@
 <!DOCTYPE html>
-<html lang="en" translate="no">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
-    <meta name="google" content="notranslate">
-    <title>📘 ASSA TP2025/2026 · 35 Soal Reading</title>
+    <title>🐉 Petualangan HSK 2 · SD Ragnarok</title>
     <style>
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
             user-select: none;
         }
+
         body {
             font-family: 'Comic Neue', 'Segoe UI', cursive, sans-serif;
-            background: linear-gradient(145deg, #f9e7b2 0%, #ffd5a4 100%);
-            min-height: 100vh; display: flex; justify-content: center; align-items: center;
-            padding: 16px; position: relative; overflow-x: hidden;
+            background: linear-gradient(145deg, #1b4d3d 0%, #2a7a5e 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 12px;
+            position: relative;
+            overflow-x: hidden;
         }
+
+        /* Awan dan latar */
         body::before {
-            content: "⚔️🛡️"; font-size: 100px; position: absolute; top: 10px; left: 10px;
-            opacity: 0.15; transform: rotate(-10deg); pointer-events: none;
+            content: "☁️☁️☁️";
+            font-size: 100px;
+            position: absolute;
+            top: 20px;
+            left: 0;
+            opacity: 0.2;
+            white-space: nowrap;
+            animation: awan 60s linear infinite;
         }
-        body::after {
-            content: "🐉🏰"; font-size: 120px; position: absolute; bottom: 10px; right: 10px;
-            opacity: 0.15; transform: rotate(5deg); pointer-events: none;
+
+        @keyframes awan {
+            from { transform: translateX(-100%); }
+            to { transform: translateX(100vw); }
         }
-        .container {
-            max-width: 1200px; width: 100%; background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(6px); border-radius: 60px; box-shadow: 0 20px 30px rgba(0,0,0,0.2),
-                0 0 0 8px #ffe28c, 0 0 0 12px #ffb882; padding: 24px 20px 30px; border: 4px solid #ffaa66;
+
+        .game-container {
+            max-width: 1000px;
+            width: 100%;
+            background: #fef7e6;
+            border-radius: 70px 70px 40px 40px;
+            box-shadow: 0 20px 0 #8b5a2b, 0 30px 30px rgba(0,0,0,0.3);
+            border: 6px solid #ffb882;
+            padding: 20px 20px 30px;
+            position: relative;
+            z-index: 10;
         }
-        .credit {
-            text-align: center; font-size: 1.3rem; font-weight: bold; color: #8b4513;
-            background: #ffe9c4; padding: 10px; border-radius: 40px; margin-bottom: 15px;
-            border: 3px solid #e0a56b; box-shadow: 0 5px 0 #b2723a;
+
+        /* Kepala naga di atas */
+        .game-header {
+            background: #ffd966;
+            border-radius: 60px 60px 30px 30px;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 4px solid #b87c4b;
+            box-shadow: inset 0 -5px 0 #b87c4b, 0 8px 0 #7b4a2c;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
         }
-        .identity-bar {
-            background: #d2f0d2; padding: 15px 20px; border-radius: 50px; margin-bottom: 20px;
-            border: 3px solid #4caf50; display: flex; flex-wrap: wrap; align-items: center;
-            justify-content: center; gap: 15px; font-size: 1.2rem; box-shadow: 0 6px 0 #357a38;
-        }
-        .identity-bar input {
-            padding: 10px 20px; font-size: 1.2rem; border-radius: 40px; border: 3px solid #fb8b67;
-            background: white; font-family: 'Comic Neue', cursive; outline: none; width: 250px;
-        }
-        .identity-bar button {
-            background: #fea1a1; border: none; padding: 10px 30px; border-radius: 40px;
-            font-size: 1.2rem; font-weight: bold; color: white; border-bottom: 5px solid #b15353;
-            cursor: pointer;
-        }
-        .identity-bar button:active { transform: translateY(3px); border-bottom-width: 2px; }
-        .player-info {
-            background: #feeac9; border-radius: 30px; padding: 8px 25px; font-size: 1.3rem;
-            border: 2px solid #d98f4c;
-        }
-        .header {
-            display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center;
-            background: #b0e0ff; padding: 16px 25px; border-radius: 50px; margin-bottom: 25px;
-            border: 3px solid #f08080; box-shadow: inset 0 -3px 0 #8ab3cf, 0 8px 0 #8b6b4d;
+
+        .level-badge {
+            background: #b64545;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 40px;
+            font-size: 1.7rem;
             font-weight: bold;
+            border: 3px solid #ffd966;
+            box-shadow: 0 5px 0 #6d2e2e;
+            text-shadow: 2px 2px 0 #4b1e1e;
         }
+
+        .score-box {
+            background: #4a7a9c;
+            color: #ffefc0;
+            padding: 10px 25px;
+            border-radius: 30px;
+            font-size: 1.5rem;
+            border: 3px solid #ffdb8e;
+            box-shadow: 0 5px 0 #235076;
+        }
+
         .timer-box {
-            background: #2e1b0e; color: #f9e081; padding: 12px 24px; border-radius: 40px;
-            font-size: 1.7rem; font-family: 'Courier New', monospace; letter-spacing: 3px;
-            text-shadow: 0 2px 0 #b87c4b; box-shadow: 0 5px 0 #5a3e2b; border: 2px solid #f7c46e;
+            background: #2e1b0e;
+            color: #f9e081;
+            padding: 10px 20px;
+            border-radius: 40px;
+            font-size: 1.7rem;
+            font-family: 'Courier New', monospace;
+            border: 2px solid #f7c46e;
+            box-shadow: 0 5px 0 #5a3e2b;
         }
-        .per-question-timer {
-            background: #fea3aa; padding: 8px 20px; border-radius: 30px; color: white;
-            font-size: 1.4rem; border: 2px solid #fff0b5; box-shadow: 0 4px 0 #b45f5f;
+
+        .player-info {
+            background: #f0c45a;
+            padding: 8px 25px;
+            border-radius: 40px;
+            font-size: 1.4rem;
+            border: 3px solid #fff1b5;
+            box-shadow: 0 4px 0 #a47d3b;
         }
-        .tabs { display: flex; gap: 20px; }
-        .tab {
-            background: #ffcf96; padding: 12px 35px; border-radius: 40px; font-size: 1.5rem;
-            font-weight: bold; color: #4b2e1a; cursor: pointer; border: 3px solid #fff5d0;
-            box-shadow: 0 7px 0 #b47c4d; transition: 0.1s; text-shadow: 0 1px 0 white;
+
+        .player-info input {
+            border: none;
+            background: #fffad0;
+            border-radius: 30px;
+            padding: 8px 15px;
+            font-size: 1.2rem;
+            font-family: inherit;
+            border: 2px solid #d48b4b;
+            outline: none;
+            width: 180px;
         }
-        .tab.active { background: #ffb156; box-shadow: 0 3px 0 #b47c4d; transform: translateY(4px); border-color: #ffeaa5; }
-        .question-area {
-            background: #fff9e6; border-radius: 70px; padding: 30px; border: 5px solid #ffc586;
-            box-shadow: inset 0 0 0 4px #ffe1b3, 0 15px 0 #b2814a; margin: 20px 0 30px;
+
+        .player-info button {
+            background: #fea1a1;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border-bottom: 5px solid #b15353;
+            cursor: pointer;
+            margin-left: 10px;
         }
+
+        .player-info button:active {
+            transform: translateY(3px);
+            border-bottom-width: 2px;
+        }
+
+        /* Peta petualangan */
+        .map-area {
+            background: #95c77e;
+            border-radius: 80px;
+            padding: 20px;
+            border: 5px solid #5f9e4b;
+            box-shadow: inset 0 0 0 5px #c0e0a8, 0 12px 0 #3d6b2b;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            position: relative;
+        }
+
+        .character {
+            font-size: 6rem;
+            filter: drop-shadow(6px 10px 0 #3f6123);
+            background: #ffcf96;
+            border-radius: 50%;
+            padding: 10px;
+            line-height: 1;
+            border: 5px solid #ff9f4b;
+            transform: rotate(-2deg);
+        }
+
+        .progress-flags {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .flag {
+            font-size: 2.8rem;
+            opacity: 0.4;
+            transition: 0.2s;
+            filter: grayscale(0.6);
+        }
+
+        .flag.completed {
+            opacity: 1;
+            filter: none;
+            transform: scale(1.1);
+            text-shadow: 0 0 10px gold;
+        }
+
+        .flag.current {
+            opacity: 1;
+            filter: none;
+            transform: scale(1.2);
+            animation: bounce 1s infinite;
+        }
+
+        @keyframes bounce {
+            0%,100%{ transform: translateY(0) scale(1.2); }
+            50%{ transform: translateY(-8px) scale(1.3); }
+        }
+
+        /* Kotak soal */
+        .question-panel {
+            background: #fff3d1;
+            border-radius: 70px;
+            padding: 25px;
+            border: 6px solid #fca65b;
+            box-shadow: inset 0 0 0 5px #ffe8b5, 0 15px 0 #a5672b;
+            margin: 20px 0;
+        }
+
         .question-header {
-            display: flex; justify-content: space-between; align-items: center; background: #dbb88c;
-            border-radius: 40px; padding: 8px 25px; margin-bottom: 25px; color: white;
-            font-size: 1.4rem; border: 2px solid #ffda9e;
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            background: #fbb44b;
+            border-radius: 40px;
+            padding: 10px 25px;
+            margin-bottom: 25px;
+            color: white;
+            font-size: 1.6rem;
+            border: 3px solid #ffe5a3;
         }
+
         .question-text {
-            font-size: 1.5rem; background: #ffefd2; padding: 30px 25px; border-radius: 50px;
-            border: 3px dashed #ff9f5b; line-height: 1.6; color: #3f280e; margin-bottom: 30px;
+            font-size: 1.7rem;
+            background: #ffe6b0;
+            padding: 25px;
+            border-radius: 50px;
+            border: 4px dashed #ff884d;
+            margin-bottom: 30px;
+            color: #442c0e;
+            box-shadow: 0 4px 0 #bd7f40;
         }
+
         .statement-text {
-            font-size: 1.3rem; background: #c9e4ff; padding: 15px 25px; border-radius: 40px;
-            border: 2px solid #6fa3d9; margin: 10px 0 20px; color: #143b5c;
+            background: #add8e6;
+            padding: 15px 25px;
+            border-radius: 40px;
+            border: 3px solid #2f7ca0;
+            font-size: 1.4rem;
+            margin: 10px 0 25px;
+            color: #05314e;
         }
-        .options {
-            display: flex; flex-direction: column; gap: 18px; margin: 20px 0;
+
+        .options-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
         }
-        .option {
-            background: #fef7d5; padding: 18px 25px; border-radius: 50px; border: 3px solid #c98f5e;
-            font-size: 1.3rem; display: flex; align-items: center; cursor: pointer;
-            box-shadow: 0 6px 0 #ab7c4d; transition: 0.15s;
+
+        .option-row {
+            background: #fff4c9;
+            border: 4px solid #d48b4b;
+            border-radius: 60px;
+            padding: 18px 25px;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: 0 6px 0 #9b6533;
+            transition: 0.1s;
         }
-        .option:hover { background: #ffe5b4; transform: scale(1.01); }
-        .option.selected { background: #b0e57c; border-color: #4caf50; box-shadow: 0 4px 0 #2e7d32; transform: translateY(2px); color: #1d3c1d; }
-        .option input[type="radio"] {
-            appearance: none; width: 28px; height: 28px; background: white; border-radius: 50%;
-            border: 3px solid #d2691e; margin-right: 25px; cursor: pointer;
+
+        .option-row:hover {
+            background: #ffe3a5;
+            transform: scale(1.01);
         }
-        .option input[type="radio"]:checked { background: #ffae42; border-color: #aa4e1c; box-shadow: 0 0 0 3px #ffe68f; }
+
+        .option-row.selected {
+            background: #a7e08b;
+            border-color: #3f9e2b;
+            box-shadow: 0 3px 0 #2b6b1c;
+            transform: translateY(3px);
+        }
+
+        .option-letter {
+            background: #f0853a;
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: bold;
+            margin-right: 25px;
+            border: 3px solid #ffd966;
+            box-shadow: 0 4px 0 #964b1a;
+        }
+
         .image-options {
-            display: flex; justify-content: space-around; gap: 20px; flex-wrap: wrap; margin: 30px 0;
+            display: flex;
+            gap: 25px;
+            flex-wrap: wrap;
+            justify-content: center;
         }
-        .image-option {
-            background: #feeac9; border: 5px solid #d9894b; border-radius: 60px; padding: 20px;
-            text-align: center; cursor: pointer; box-shadow: 0 10px 0 #aa6733; transition: 0.1s;
-            flex: 1 1 150px;
+
+        .image-opt {
+            background: #ffe2b0;
+            border: 6px solid #f19a4b;
+            border-radius: 50px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            box-shadow: 0 10px 0 #9e612e;
+            transition: 0.1s;
+            min-width: 140px;
         }
-        .image-option.selected { background: #c5e0b4; border-color: #548235; transform: translateY(5px); box-shadow: 0 5px 0 #3b5e1f; }
-        .image-option span { font-size: 5rem; display: block; line-height: 1.2; }
-        .image-option .letter { font-size: 2rem; font-weight: bold; color: #6b3f1c; margin-top: 10px; }
-        .nav-panel {
-            display: flex; justify-content: space-between; align-items: center; margin-top: 25px; flex-wrap: wrap; gap: 15px;
+
+        .image-opt.selected {
+            background: #b9e08b;
+            border-color: #548235;
+            transform: translateY(5px);
+            box-shadow: 0 5px 0 #3b5e1f;
         }
-        .question-nav {
-            display: flex; flex-wrap: wrap; gap: 12px; background: #ffdcaa; padding: 15px 20px;
-            border-radius: 60px; border: 3px solid #ffb457;
+
+        .image-opt span {
+            font-size: 5rem;
+            display: block;
         }
-        .nav-btn {
-            background: #f0f0f0; border: 3px solid #cb7b3c; color: #4b2e1a; font-size: 1.5rem;
-            font-weight: bold; width: 55px; height: 55px; border-radius: 30px; cursor: pointer;
-            box-shadow: 0 5px 0 #9b6b3e;
+
+        .image-opt .letter {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #633e1a;
         }
-        .nav-btn:active { transform: translateY(4px); box-shadow: 0 1px 0 #9b6b3e; }
-        .nav-btn.active-question { background: #ffb156; border-color: #fff1b5; color: white; }
-        .action-btns { display: flex; gap: 15px; }
-        .action-btn {
-            background: #fea1a1; border: none; padding: 15px 35px; border-radius: 40px;
-            font-size: 1.4rem; font-weight: bold; color: white; border-bottom: 7px solid #b15353;
-            cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-            opacity: 0.6;
+
+        /* Balon animasi */
+        .balloon {
+            position: fixed;
+            font-size: 5rem;
+            bottom: 0;
+            animation: naik 3s ease-out forwards;
+            z-index: 999;
             pointer-events: none;
         }
-        .action-btn.active {
-            opacity: 1;
-            pointer-events: auto;
+
+        @keyframes naik {
+            0% { transform: translateY(0); opacity: 1; }
+            100% { transform: translateY(-100vh); opacity: 0; }
         }
-        .action-btn:active { border-bottom-width: 2px; transform: translateY(5px); }
-        .action-btn.submit { background: #6ecf8b; border-bottom-color: #2d7842; }
-        .report-card {
-            background: #fffcd1; border-radius: 60px; padding: 30px; border: 6px solid #f7b731;
-            margin-top: 30px; box-shadow: 0 15px 0 #c58f38;
+
+        /* Tombol */
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
         }
-        .score-row {
-            display: flex; gap: 40px; justify-content: center; font-size: 2rem; flex-wrap: wrap;
+
+        .btn {
+            background: #fea1a1;
+            border: none;
+            padding: 15px 45px;
+            border-radius: 50px;
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: white;
+            border-bottom: 8px solid #b15353;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
         }
-        .badge { background: #56b4e9; padding: 15px 30px; border-radius: 40px; color: white; box-shadow: 0 8px 0 #2a6b96; }
-        .review-btn {
-            background: #f2c94c; border: none; padding: 15px 35px; border-radius: 40px;
-            font-size: 1.4rem; font-weight: bold; border-bottom: 7px solid #b47d26; cursor: pointer; margin-top: 20px;
+
+        .btn:active {
+            transform: translateY(5px);
+            border-bottom-width: 3px;
         }
-        .hidden { display: none; }
-        .review-list {
-            max-height: 400px; overflow-y: auto; background: #f3e1c2; border-radius: 40px;
-            padding: 20px; margin-top: 20px; border: 3px solid #e3a56d;
+
+        .btn.challenge {
+            background: #d4a13e;
+            border-bottom-color: #8b621f;
         }
-        .review-item {
-            background: #fff4dd; padding: 15px; border-radius: 30px; margin-bottom: 15px;
-            border-left: 15px solid #ff7f7f;
+
+        .footer {
+            text-align: center;
+            color: #ac7339;
+            margin-top: 20px;
+            font-size: 1.3rem;
         }
-        .footer { text-align: center; margin-top: 30px; color: #8b5a2b; }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .win-message, .timeout-message {
+            background: #f9e281;
+            border-radius: 80px;
+            padding: 40px;
+            text-align: center;
+            font-size: 2.5rem;
+            border: 8px solid #f7b731;
+            box-shadow: 0 20px 0 #b5821e;
+        }
+        .timeout-message { background: #ffb5a0; border-color: #d14343; }
+
+        /* Modal untuk jawaban salah */
+        .modal {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(0,0,0,0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        .modal-content {
+            background: #fff3b0;
+            border-radius: 80px;
+            padding: 40px;
+            text-align: center;
+            border: 8px solid #ff8a5c;
+            box-shadow: 0 20px 0 #b1451a;
+            max-width: 600px;
+        }
+        .modal-content p {
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            color: #4b2f0e;
+        }
+        .modal-content button {
+            font-size: 2rem;
+            padding: 15px 60px;
+        }
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
 </head>
-<body oncontextmenu="return false" onselectstart="return false" oncopy="return false" oncut="return false" onpaste="return false" ondragstart="return false">
-<div class="container" id="app">
-    <div class="credit">⚡ by lcnpalembang-08994477988 ⚡</div>
-    <div class="identity-bar">
-        <span>👤 Nama/Nomor:</span>
-        <input type="text" id="playerIdInput" placeholder="Masukkan nama atau nomor" value="">
-        <button id="setPlayerBtn">Simpan</button>
-        <span class="player-info" id="playerDisplay">Belum diisi</span>
-    </div>
-
-    <div class="header">
-        <div class="timer-box" id="globalTimer">45:00</div>
-        <div class="per-question-timer" id="questionTimer">01:00</div>
-        <div class="tabs">
-            <div class="tab active" id="tabReading">📖 Reading (1-35)</div>
+<body>
+<div class="game-container">
+    <div class="game-header">
+        <div class="level-badge" id="levelDisplay">🌋 Level 1</div>
+        <div class="timer-box" id="timerDisplay">40:00</div>
+        <div class="score-box" id="scoreDisplay">🏆 0 / 35</div>
+        <div class="player-info">
+            <input type="text" id="playerName" placeholder="Nama petualang" value="Ksatria">
+            <button id="setNameBtn">✏️</button>
         </div>
     </div>
 
-    <div id="questionArea" class="question-area"></div>
-
-    <div class="nav-panel">
-        <div class="question-nav" id="questionNav"></div>
-        <div class="action-btns">
-            <button class="action-btn" id="prevBtn">◀ Sebelumnya</button>
-            <button class="action-btn" id="nextBtn">Selanjutnya ▶</button>
-            <button class="action-btn submit" id="submitBtn" disabled>✅ Submit</button>
+    <div class="map-area">
+        <div class="character" id="character">🐉</div>
+        <div class="progress-flags" id="progressFlags">
+            <!-- bendera level akan diisi js -->
         </div>
     </div>
 
-    <div id="reportSection" class="report-card hidden">
-        <h2 style="text-align:center; color:#4f2f0e;">📋 Laporan Hasil</h2>
-        <div id="playerReport" style="text-align:center; font-size:1.5rem; background:#ffeac2; border-radius:40px; padding:10px; margin-bottom:20px;"></div>
-        <div class="score-row">
-            <div class="badge" id="readingScore">Reading: 0/35</div>
-            <div class="badge" id="totalScore">Total: 0/35</div>
+    <div id="gameMain">
+        <!-- area soal akan diisi javascript -->
+        <div class="question-panel" id="questionPanel">
+            <div class="question-header">
+                <span id="qLevel">Level 1 · Soal 1</span>
+                <span>📖 HSK 2</span>
+            </div>
+            <div id="questionBody">Memuat soal...</div>
         </div>
-        <button class="review-btn" id="reviewBtn">🔍 Review Jawaban Salah</button>
-        <div id="reviewDetails" class="review-list hidden"></div>
-        <button class="review-btn" id="closeReportBtn" style="background:#b0b0b0;">Tutup Laporan</button>
+        <div class="action-buttons">
+            <button class="btn" id="nextOrChallengeBtn" style="display: none;">➡️ Lanjut</button>
+        </div>
     </div>
 
-    <div class="footer">⚡ Ragnarok kartun · ASSA TP2025/2026 ⚡</div>
+    <div id="winScreen" class="win-message hidden">
+        🎉🎉 SELAMAT! <br> Kamu telah menyelesaikan petualangan! <br> ⚔️ Pahlawan HSK 2 ⚔️
+        <button class="btn" id="restartBtn" style="margin-top:30px;">🔁 Main Lagi</button>
+    </div>
+
+    <div id="timeoutScreen" class="timeout-message hidden">
+        ⏰ WAKTU HABIS! <br> Ayo coba lagi! <br> 
+        <button class="btn" id="timeoutRestartBtn" style="margin-top:30px;">🔁 Main Lagi</button>
+    </div>
+
+    <div class="footer">⚡ Petualangan HSK 2 · SD Ragnarok ⚡</div>
+</div>
+
+<!-- Modal untuk jawaban salah -->
+<div id="wrongModal" class="modal hidden">
+    <div class="modal-content">
+        <p id="wrongMessage"></p>
+        <button class="btn" id="wrongOkBtn">OK</button>
+    </div>
 </div>
 
 <script>
 (function() {
-    // ===================== FUNGSI PENGACAKAN =====================
-    function shuffleArray(arr) {
-        for (let i = arr.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [arr[i], arr[j]] = [arr[j], arr[i]];
-        }
-        return arr;
-    }
-
-    // Acak opsi dan sesuaikan correct
-    function shuffleOptions(question) {
-        if (question.type === 'image-choice' || question.type === 'mc6' || question.type === 'tf' || question.type === 'match') {
-            const opts = question.options.slice();
-            const correctIndex = question.correct.charCodeAt(0) - 65; // 0-based index
-            const correctValue = opts[correctIndex];
-            shuffleArray(opts);
-            const newCorrectIndex = opts.indexOf(correctValue);
-            question.options = opts;
-            question.correct = String.fromCharCode(65 + newCorrectIndex);
-        }
-        // Untuk image-choice dengan emoji, sama
-    }
-
-    // ===================== DATA SOAL AWAL (berdasarkan gambar) =====================
+    // ======================= DATA SOAL TANPA PINYIN (SUDAH DIACAK) =======================
     const rawQuestions = [
-        // 1-5: image-choice (pilih gambar)
+        // 1-5 image-choice
         { id: 1, type: 'image-choice', question: '非常欢迎你！', options: ['👋', '🤝', '🙅'], correct: 'A' },
         { id: 2, type: 'image-choice', question: '我每天早上都看报纸。', options: ['📰', '📺', '📚'], correct: 'A' },
         { id: 3, type: 'image-choice', question: '他正在跑步。', options: ['🏃', '🚶', '🚴'], correct: 'A' },
         { id: 4, type: 'image-choice', question: '她喜欢吃苹果。', options: ['🍎', '🍌', '🍇'], correct: 'A' },
         { id: 5, type: 'image-choice', question: '我们在等公交车。', options: ['🚌', '🚗', '🚲'], correct: 'A' },
-
-        // 6-15: isian kata (mc6)
+        // 6-15 mc6 (6 pilihan)
         { id: 6, type: 'mc6', question: '每个周末我都喜欢和朋友一起去（ ）。', options: ['A 课', 'B 鸡蛋', 'C 希望', 'D 唱歌', 'E 帮助', 'F 事情'], correct: 'D' },
         { id: 7, type: 'mc6', question: '明天的（ ）我都准备好了，可以睡觉了。', options: ['A 课', 'B 鸡蛋', 'C 希望', 'D 唱歌', 'E 帮助', 'F 事情'], correct: 'A' },
         { id: 8, type: 'mc6', question: '我每天早上吃一个（ ），喝一杯牛奶。', options: ['A 课', 'B 鸡蛋', 'C 希望', 'D 唱歌', 'E 帮助', 'F 事情'], correct: 'B' },
@@ -265,115 +498,285 @@
         { id: 13, type: 'mc6', question: '我想（ ）你能来。', options: ['A 课', 'B 鸡蛋', 'C 希望', 'D 唱歌', 'E 帮助', 'F 事情'], correct: 'C' },
         { id: 14, type: 'mc6', question: '我们一起去（ ）吧。', options: ['A 课', 'B 鸡蛋', 'C 希望', 'D 唱歌', 'E 帮助', 'F 事情'], correct: 'D' },
         { id: 15, type: 'mc6', question: '我需要你的（ ）。', options: ['A 课', 'B 鸡蛋', 'C 希望', 'D 唱歌', 'E 帮助', 'F 事情'], correct: 'E' },
-
-        // 16-20: benar/salah (tf)
-        { id: 16, type: 'tf', question: '哥哥汉语比我好，姐姐的汉语也比我好。', statement: '我的汉语没有哥哥和姐姐那么好。', options: ['正确', '错误'], correct: '正确' },
-        { id: 17, type: 'tf', question: '这是儿子送给我的手表，因为明天是我的生日。', statement: '他送给儿子一块手表。', options: ['正确', '错误'], correct: '错误' },
-        { id: 18, type: 'tf', question: '那件白色的衣服我帮你洗了，在外面呢。', statement: '衣服在外面。', options: ['正确', '错误'], correct: '正确' },
-        { id: 19, type: 'tf', question: '我每天早上喝牛奶。', statement: '我从来不喝牛奶。', options: ['正确', '错误'], correct: '错误' },
-        { id: 20, type: 'tf', question: '他在教室学习。', statement: '他在家。', options: ['正确', '错误'], correct: '错误' },
-
-        // 21-25: memilih tanya jawab (match)
+        // 16-20 tf (benar/salah) -> opsi akan ditampilkan dengan ikon ✅/❌
+        { id: 16, type: 'tf', question: '哥哥汉语比我好，姐姐的汉语也比我好。', statement: '我的汉语没有哥哥和姐姐那么好。', options: ['正确', '错误'], correct: 'A' },
+        { id: 17, type: 'tf', question: '这是儿子送给我的手表，因为明天是我的生日。', statement: '他送给儿子一块手表。', options: ['正确', '错误'], correct: 'B' },
+        { id: 18, type: 'tf', question: '那件白色的衣服我帮你洗了，在外面呢。', statement: '衣服在外面。', options: ['正确', '错误'], correct: 'A' },
+        { id: 19, type: 'tf', question: '我每天早上喝牛奶。', statement: '我从来不喝牛奶。', options: ['正确', '错误'], correct: 'B' },
+        { id: 20, type: 'tf', question: '他在教室学习。', statement: '他在家。', options: ['正确', '错误'], correct: 'B' },
+        // 21-25 match
         { id: 21, type: 'match', question: '你找大卫有什么事吗？', options: ['A 非常好，我想明年再来一次。', 'B 爸爸，明天我们一起去跑步吧。', 'C 听说他生病了，我想去医院看看他。', 'D 家里还有呢，来点儿水果吧。', 'E 他还在教室里学习。'], correct: 'C' },
         { id: 22, type: 'match', question: '第一次来北京吧？北京漂亮吗？', options: ['A 非常好，我想明年再来一次。', 'B 爸爸，明天我们一起去跑步吧。', 'C 听说他生病了，我想去医院看看他。', 'D 家里还有呢，来点儿水果吧。', 'E 他还在教室里学习。'], correct: 'A' },
         { id: 23, type: 'match', question: '他还在教室里学习吗？', options: ['A 非常好，我想明年再来一次。', 'B 爸爸，明天我们一起去跑步吧。', 'C 听说他生病了，我想去医院看看他。', 'D 家里还有呢，来点儿水果吧。', 'E 他还在教室里学习。'], correct: 'E' },
         { id: 24, type: 'match', question: '要不要吃点水果？', options: ['A 非常好，我想明年再来一次。', 'B 爸爸，明天我们一起去跑步吧。', 'C 听说他生病了，我想去医院看看他。', 'D 家里还有呢，来点儿水果吧。', 'E 他还在教室里学习。'], correct: 'D' },
         { id: 25, type: 'match', question: '明天我们一起去跑步吧？', options: ['A 非常好，我想明年再来一次。', 'B 爸爸，明天我们一起去跑步吧。', 'C 听说他生病了，我想去医院看看他。', 'D 家里还有呢，来点儿水果吧。', 'E 他还在教室里学习。'], correct: 'B' },
-
-        // 26-30: menyusun kata (mc6 dengan opsi kalimat)
+        // 26-30 mc6 susun kata
         { id: 26, type: 'mc6', question: '我/喜欢/唱歌/和/朋友。 正确的句子是？', options: ['A 我和朋友喜欢唱歌。', 'B 我喜欢和朋友唱歌。', 'C 朋友和我喜欢唱歌。', 'D 我喜欢唱歌和朋友。'], correct: 'B' },
         { id: 27, type: 'mc6', question: '明天/去/我/北京/要。 正确的句子是？', options: ['A 我明天要去北京。', 'B 明天我要去北京。', 'C 要去我明天北京。', 'D 我要明天去北京。'], correct: 'A' },
         { id: 28, type: 'mc6', question: '她/每天/喝/牛奶/早上。 正确的句子是？', options: ['A 她每天早上喝牛奶。', 'B 她喝牛奶每天早上。', 'C 每天早上她喝牛奶。', 'D 她每天喝牛奶早上。'], correct: 'A' },
         { id: 29, type: 'mc6', question: '这/是/书/我的。 正确的句子是？', options: ['A 这是我的书。', 'B 这是书我的。', 'C 我这是书。', 'D 书这是我的。'], correct: 'A' },
         { id: 30, type: 'mc6', question: '他/在/教室/学习。 正确的句子是？', options: ['A 他在教室学习。', 'B 他在学习教室。', 'C 教室他在学习。', 'D 学习他在教室。'], correct: 'A' },
-
-        // 31-35: menulis hanzi dari pinyin (mc6)
-        { id: 31, type: 'mc6', question: 'Youbian (右边) 的正确汉字是？', options: ['A 右边', 'B 左边', 'C 上边', 'D 下边'], correct: 'A' },
-        { id: 32, type: 'mc6', question: 'Xigua (西瓜) 的正确汉字是？', options: ['A 西瓜', 'B 苹果', 'C 香蕉', 'D 葡萄'], correct: 'A' },
+        // 31-35 mc6 hanzi (tanpa pinyin)
+        { id: 31, type: 'mc6', question: 'Hanzi untuk "kanan" adalah?', options: ['A 右边', 'B 左边', 'C 上边', 'D 下边'], correct: 'A' },
+        { id: 32, type: 'mc6', question: 'Hanzi untuk "semangka" adalah?', options: ['A 西瓜', 'B 苹果', 'C 香蕉', 'D 葡萄'], correct: 'A' },
         { id: 33, type: 'mc6', question: '我第一次（ ）是在七岁的时候。', options: ['A 来', 'B 去', 'C 吃', 'D 看'], correct: 'A' },
         { id: 34, type: 'mc6', question: '妈妈（ ）准备午饭呢。', options: ['A 正在', 'B 已经', 'C 马上', 'D 刚才'], correct: 'A' },
         { id: 35, type: 'mc6', question: '别找了，（ ）在桌子上呢，电脑旁边。', options: ['A 手机', 'B 手表', 'C 电脑', 'D 书'], correct: 'A' }
     ];
 
-    // Acak urutan soal dan opsi
-    let questions = shuffleArray(rawQuestions.slice());
-    questions.forEach(q => shuffleOptions(q));
+    // ======================= TANTANGAN KOSAKATA (35 SOAL, TANPA PINYIN) =======================
+    const challengeBank = [
+        { question: "🍎 苹果 artinya?", options: ["Apel", "Pisang", "Jeruk", "Anggur"], correct: "A" },
+        { question: "👩‍🏫 老师 artinya?", options: ["Siswa", "Guru", "Dokter", "Polisi"], correct: "B" },
+        { question: "🏫 学校 artinya?", options: ["Rumah", "Sekolah", "Toko", "Rumah Sakit"], correct: "B" },
+        { question: "🍚 吃饭 artinya?", options: ["Minum", "Makan", "Tidur", "Belajar"], correct: "B" },
+        { question: "🥤 喝水 artinya?", options: ["Makan", "Minum", "Mandi", "Lari"], correct: "B" },
+        { question: "👋 你好 artinya?", options: ["Pagi", "Halo", "Terima kasih", "Selamat tinggal"], correct: "B" },
+        { question: "🙏 谢谢 artinya?", options: ["Maaf", "Terima kasih", "Sama-sama", "Tolong"], correct: "B" },
+        { question: "👋 再见 artinya?", options: ["Halo", "Selamat tinggal", "Terima kasih", "Maaf"], correct: "B" },
+        { question: "👨 爸爸 artinya?", options: ["Ibu", "Ayah", "Kakak", "Adik"], correct: "B" },
+        { question: "👩 妈妈 artinya?", options: ["Ayah", "Ibu", "Nenek", "Kakek"], correct: "B" },
+        { question: "👦 哥哥 artinya?", options: ["Adik laki-laki", "Kakak laki-laki", "Teman", "Ayah"], correct: "B" },
+        { question: "👧 姐姐 artinya?", options: ["Kakak perempuan", "Adik perempuan", "Ibu", "Nenek"], correct: "A" },
+        { question: "👶 弟弟 artinya?", options: ["Kakak laki-laki", "Adik laki-laki", "Bayi", "Teman"], correct: "B" },
+        { question: "👧 妹妹 artinya?", options: ["Kakak perempuan", "Adik perempuan", "Ibu", "Nenek"], correct: "B" },
+        { question: "📅 今天 artinya?", options: ["Kemarin", "Besok", "Hari ini", "Lusa"], correct: "C" },
+        { question: "📅 明天 artinya?", options: ["Hari ini", "Kemarin", "Besok", "Sekarang"], correct: "C" },
+        { question: "📅 昨天 artinya?", options: ["Besok", "Hari ini", "Kemarin", "Nanti"], correct: "C" },
+        { question: "🌅 早上 artinya?", options: ["Pagi", "Siang", "Sore", "Malam"], correct: "A" },
+        { question: "☀️ 中午 artinya?", options: ["Pagi", "Siang", "Sore", "Malam"], correct: "B" },
+        { question: "🌙 晚上 artinya?", options: ["Pagi", "Siang", "Sore", "Malam"], correct: "D" },
+        { question: "😊 高兴 artinya?", options: ["Sedih", "Senang", "Marah", "Lelah"], correct: "B" },
+        { question: "❤️ 喜欢 artinya?", options: ["Benci", "Suka", "Biasa", "Tidak suka"], correct: "B" },
+        { question: "💡 知道 artinya?", options: ["Tidak tahu", "Tahu", "Mengerti", "Paham"], correct: "B" },
+        { question: "🤝 认识 artinya?", options: ["Lupa", "Kenal", "Bertemu", "Mengenal"], correct: "B" },
+        { question: "💪 能 artinya?", options: ["Tidak bisa", "Bisa", "Mau", "Harus"], correct: "B" },
+        { question: "📚 会 artinya?", options: ["Bisa (terampil)", "Tidak bisa", "Mau", "Harus"], correct: "A" },
+        { question: "✅ 可以 artinya?", options: ["Tidak boleh", "Boleh", "Harus", "Mau"], correct: "B" },
+        { question: "🙏 请 artinya?", options: ["Tolong", "Maaf", "Silakan", "Terima kasih"], correct: "C" },
+        { question: "😔 对不起 artinya?", options: ["Terima kasih", "Sama-sama", "Maaf", "Tolong"], correct: "C" },
+        { question: "👍 没关系 artinya?", options: ["Tidak apa-apa", "Maaf", "Terima kasih", "Sama-sama"], correct: "A" },
+        { question: "🌸 漂亮 artinya?", options: ["Jelek", "Cantik", "Besar", "Kecil"], correct: "B" },
+        { question: "👕 好看 artinya?", options: ["Jelek", "Bagus", "Baru", "Lama"], correct: "B" },
+        { question: "🐘 大 artinya?", options: ["Kecil", "Besar", "Panjang", "Pendek"], correct: "B" },
+        { question: "🐭 小 artinya?", options: ["Besar", "Kecil", "Tinggi", "Rendah"], correct: "B" },
+        { question: "🔢 多 artinya?", options: ["Sedikit", "Banyak", "Beberapa", "Semua"], correct: "B" }
+    ];
 
-    // ===================== STATE =====================
-    let currentIndex = 0;
-    let answers = {};
-    let globalSecondsLeft = 2700; // 45 menit
-    let perQuestionSecondsLeft = 60;
-    let globalTimerInterval, perQuestionInterval;
-    let testSubmitted = false;
-    let playerName = '';
-
-    // DOM elements
-    const questionArea = document.getElementById('questionArea');
-    const questionNav = document.getElementById('questionNav');
-    const globalTimerEl = document.getElementById('globalTimer');
-    const questionTimerEl = document.getElementById('questionTimer');
-    const prevBtn = document.getElementById('prevBtn');
-    const nextBtn = document.getElementById('nextBtn');
-    const submitBtn = document.getElementById('submitBtn');
-    const reportSection = document.getElementById('reportSection');
-    const readingScoreEl = document.getElementById('readingScore');
-    const totalScoreEl = document.getElementById('totalScore');
-    const reviewBtn = document.getElementById('reviewBtn');
-    const reviewDetails = document.getElementById('reviewDetails');
-    const closeReportBtn = document.getElementById('closeReportBtn');
-    const playerIdInput = document.getElementById('playerIdInput');
-    const setPlayerBtn = document.getElementById('setPlayerBtn');
-    const playerDisplay = document.getElementById('playerDisplay');
-    const playerReport = document.getElementById('playerReport');
-
-    setPlayerBtn.addEventListener('click', () => {
-        const val = playerIdInput.value.trim();
-        playerName = val || 'Tanpa Nama';
-        playerDisplay.textContent = playerName;
-    });
-
-    function getCurrentList() {
-        return questions;
+    // ======================= FUNGSI PENGACAKAN =======================
+    function shuffleArray(arr) {
+        for (let i = arr.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [arr[i], arr[j]] = [arr[j], arr[i]];
+        }
+        return arr;
     }
 
-    function saveAnswer(id, value) {
-        if (testSubmitted) return;
-        answers[id] = value;
-        checkAllAnswered();
-    }
-
-    function getAnswer(id) {
-        return answers[id] || null;
-    }
-
-    function checkAllAnswered() {
-        const total = questions.length;
-        let answered = 0;
-        questions.forEach(q => { if (answers[q.id]) answered++; });
-        if (answered === total) {
-            submitBtn.classList.add('active');
-            submitBtn.disabled = false;
-        } else {
-            submitBtn.classList.remove('active');
-            submitBtn.disabled = true;
+    function shuffleOptions(question) {
+        if (question.type === 'image-choice' || question.type === 'mc6' || question.type === 'tf' || question.type === 'match') {
+            const opts = question.options.slice();
+            const correctIndex = question.correct.charCodeAt(0) - 65;
+            const correctValue = opts[correctIndex];
+            shuffleArray(opts);
+            const newCorrectIndex = opts.indexOf(correctValue);
+            question.options = opts;
+            question.correct = String.fromCharCode(65 + newCorrectIndex);
         }
     }
 
-    function updateGlobalTimerDisplay() {
-        const mins = Math.floor(globalSecondsLeft / 60);
-        const secs = globalSecondsLeft % 60;
-        globalTimerEl.textContent = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+    // Acak global soal dan opsi
+    function shuffleAllQuestions() {
+        shuffleArray(rawQuestions);
+        rawQuestions.forEach(q => shuffleOptions(q));
     }
 
-    function renderQuestion() {
-        if (testSubmitted) return;
-        const list = getCurrentList();
-        if (!list.length) return;
-        const q = list[currentIndex];
-        const answer = getAnswer(q.id);
+    // Kelompokkan soal per level (5 soal per level) -> 7 level
+    let levels = [];
 
-        let header = `<div class="question-header"><span>Soal ${q.id}</span><span>📖 Reading</span></div>`;
+    function buildLevels() {
+        levels = [];
+        for (let i = 0; i < 7; i++) {
+            levels.push(rawQuestions.slice(i*5, i*5+5));
+        }
+    }
+
+    // ======================= STATE GAME =======================
+    let currentLevel = 0;
+    let currentQuestionIdx = 0;
+    let levelProgress = [];
+    let totalScore = 0;
+    let playerName = "Ksatria";
+    let inChallenge = false;
+    let challengeProgress = [];      // boolean untuk 5 soal tantangan
+    let challengeQuestionIndex = 0;  // indeks soal tantangan saat ini (0-4)
+
+    // Timer
+    let globalSecondsLeft = 2400; // 40 menit
+    let timerInterval = null;
+
+    // Elemen DOM
+    const levelDisplay = document.getElementById('levelDisplay');
+    const timerDisplay = document.getElementById('timerDisplay');
+    const scoreDisplay = document.getElementById('scoreDisplay');
+    const progressFlags = document.getElementById('progressFlags');
+    const questionPanel = document.getElementById('questionPanel');
+    const questionBody = document.getElementById('questionBody');
+    const nextBtn = document.getElementById('nextOrChallengeBtn');
+    const winScreen = document.getElementById('winScreen');
+    const timeoutScreen = document.getElementById('timeoutScreen');
+    const gameMain = document.getElementById('gameMain');
+    const character = document.getElementById('character');
+    const setNameBtn = document.getElementById('setNameBtn');
+    const playerNameInput = document.getElementById('playerName');
+    const restartBtn = document.getElementById('restartBtn');
+    const timeoutRestartBtn = document.getElementById('timeoutRestartBtn');
+
+    // Modal salah
+    const wrongModal = document.getElementById('wrongModal');
+    const wrongMessage = document.getElementById('wrongMessage');
+    const wrongOkBtn = document.getElementById('wrongOkBtn');
+
+    // ======================= FUNGSI AUDIO SEDERHANA =======================
+    function playCorrect() {
+        try {
+            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            const oscillator = audioCtx.createOscillator();
+            const gainNode = audioCtx.createGain();
+            oscillator.connect(gainNode);
+            gainNode.connect(audioCtx.destination);
+            oscillator.frequency.value = 880;
+            gainNode.gain.value = 0.2;
+            oscillator.start();
+            oscillator.stop(audioCtx.currentTime + 0.2);
+        } catch (e) {}
+    }
+
+    function playWrong() {
+        try {
+            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            const oscillator = audioCtx.createOscillator();
+            const gainNode = audioCtx.createGain();
+            oscillator.connect(gainNode);
+            gainNode.connect(audioCtx.destination);
+            oscillator.frequency.value = 220;
+            gainNode.gain.value = 0.2;
+            oscillator.start();
+            oscillator.stop(audioCtx.currentTime + 0.15);
+        } catch (e) {}
+    }
+
+    // ======================= BALON =======================
+    function showBalloon() {
+        for (let i = 0; i < 5; i++) {
+            setTimeout(() => {
+                const balloon = document.createElement('div');
+                balloon.className = 'balloon';
+                balloon.innerText = '🎈';
+                balloon.style.left = Math.random() * window.innerWidth + 'px';
+                balloon.style.fontSize = (3 + Math.random()*3) + 'rem';
+                document.body.appendChild(balloon);
+                setTimeout(() => balloon.remove(), 3000);
+            }, i * 200);
+        }
+    }
+
+    // ======================= TIMER =======================
+    function startTimer() {
+        if (timerInterval) clearInterval(timerInterval);
+        timerInterval = setInterval(() => {
+            if (globalSecondsLeft > 0) {
+                globalSecondsLeft--;
+                updateTimerDisplay();
+            } else {
+                // Waktu habis
+                clearInterval(timerInterval);
+                gameMain.classList.add('hidden');
+                timeoutScreen.classList.remove('hidden');
+            }
+        }, 1000);
+    }
+
+    function updateTimerDisplay() {
+        const mins = Math.floor(globalSecondsLeft / 60);
+        const secs = globalSecondsLeft % 60;
+        timerDisplay.textContent = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+    }
+
+    // ======================= MODAL SALAH =======================
+    function showWrongModal(message) {
+        wrongMessage.innerText = message;
+        wrongModal.classList.remove('hidden');
+        // Hentikan timer? Biarkan tetap berjalan, karena akan direset setelah OK.
+    }
+
+    function hideWrongModal() {
+        wrongModal.classList.add('hidden');
+    }
+
+    // Fungsi untuk mereset game dari awal
+    function resetGame() {
+        hideWrongModal();
+        initGame(); // restart total
+    }
+
+    // ======================= INISIALISASI =======================
+    function initGame() {
+        shuffleAllQuestions();          // acak urutan soal dan opsi
+        buildLevels();                  // bangkitkan level setelah pengacakan
+        currentLevel = 0;
+        currentQuestionIdx = 0;
+        totalScore = 0;
+        inChallenge = false;
+        levelProgress = new Array(levels[currentLevel].length).fill(false);
+        globalSecondsLeft = 2400;
+        updateTimerDisplay();
+        if (timerInterval) clearInterval(timerInterval);
+        startTimer();
+
+        gameMain.classList.remove('hidden');
+        winScreen.classList.add('hidden');
+        timeoutScreen.classList.add('hidden');
+        render();
+        updateUI();
+        nextBtn.style.display = 'none';
+    }
+
+    function updateUI() {
+        levelDisplay.innerText = `🌋 Level ${currentLevel+1}`;
+        scoreDisplay.innerText = `🏆 ${totalScore} / 35`;
+        updateFlags();
+    }
+
+    function updateFlags() {
+        let html = '';
+        for (let i = 0; i < 7; i++) {
+            let flagEmoji = i === 0 ? '🏁' : i === 1 ? '🚩' : i === 2 ? '🎌' : i === 3 ? '🏴' : i === 4 ? '🏳️' : i === 5 ? '⚑' : '⚐';
+            let cls = '';
+            if (i < currentLevel) cls = 'completed';
+            else if (i === currentLevel) cls = 'current';
+            html += `<div class="flag ${cls}" data-level="${i}">${flagEmoji}</div>`;
+        }
+        progressFlags.innerHTML = html;
+    }
+
+    // Mendapatkan teks jawaban benar dalam format yang ditampilkan
+    function getCorrectDisplayText(q) {
+        const index = q.correct.charCodeAt(0) - 65;
+        let text = q.options[index];
+        if (q.type === 'tf') {
+            if (text === '正确') text = '✅ 对';
+            else if (text === '错误') text = '❌ 错';
+        }
+        return `${q.correct} - ${text}`;
+    }
+
+    // Render soal normal
+    function renderNormalQuestion() {
+        const level = levels[currentLevel];
+        if (!level) return;
+        const q = level[currentQuestionIdx];
+
+        let header = `<span>Level ${currentLevel+1} · Soal ${currentQuestionIdx+1}</span>`;
         let content = '';
 
         if (q.type === 'image-choice') {
@@ -381,195 +784,203 @@
             content += `<div class="image-options">`;
             q.options.forEach((emoji, idx) => {
                 const letter = String.fromCharCode(65 + idx);
-                const sel = (answer === letter) ? 'selected' : '';
-                content += `<div class="image-option ${sel}" data-value="${letter}"><span>${emoji}</span><div class="letter">${letter}</div></div>`;
+                content += `<div class="image-opt" data-letter="${letter}"><span>${emoji}</span><div class="letter">${letter}</div></div>`;
             });
             content += `</div>`;
-        }
-        else if (q.type === 'tf') {
+        } else {
             content += `<div class="question-text">${q.question}</div>`;
-            content += `<div class="statement-text">★ ${q.statement}</div>`;
-            content += `<div class="options">`;
+            if (q.statement) content += `<div class="statement-text">⭐ ${q.statement}</div>`;
+            content += `<div class="options-grid">`;
             q.options.forEach((opt, idx) => {
                 const letter = String.fromCharCode(65 + idx);
-                const sel = (answer === letter) ? 'selected' : '';
-                content += `<div class="option ${sel}" data-value="${letter}"><input type="radio" name="q" value="${letter}" ${sel ? 'checked' : ''}><span>${opt}</span></div>`;
-            });
-            content += `</div>`;
-        }
-        else { // mc6 atau match
-            content += `<div class="question-text">${q.question}</div>`;
-            if (q.statement) content += `<div class="statement-text">★ ${q.statement}</div>`;
-            content += `<div class="options">`;
-            q.options.forEach((opt, idx) => {
-                const letter = String.fromCharCode(65 + idx);
-                const sel = (answer === letter) ? 'selected' : '';
-                content += `<div class="option ${sel}" data-value="${letter}"><input type="radio" name="q" value="${letter}" ${sel ? 'checked' : ''}><span>${opt}</span></div>`;
+                // Untuk tipe tf, ubah teks menjadi 对/错 dengan ikon
+                let displayText = opt;
+                if (q.type === 'tf') {
+                    if (opt === '正确') displayText = '✅ 对';
+                    else if (opt === '错误') displayText = '❌ 错';
+                }
+                content += `<div class="option-row" data-letter="${letter}"><span class="option-letter">${letter}</span><span>${displayText}</span></div>`;
             });
             content += `</div>`;
         }
 
-        questionArea.innerHTML = header + content;
+        questionBody.innerHTML = content;
+        nextBtn.style.display = 'none';
 
-        // Event listener untuk pilihan
+        // Tambah event listener
         if (q.type === 'image-choice') {
-            document.querySelectorAll('.image-option').forEach(opt => {
-                opt.addEventListener('click', () => {
-                    if (testSubmitted) return;
-                    document.querySelectorAll('.image-option').forEach(el => el.classList.remove('selected'));
-                    opt.classList.add('selected');
-                    saveAnswer(q.id, opt.dataset.value);
-                });
+            document.querySelectorAll('.image-opt').forEach(el => {
+                el.addEventListener('click', () => handleAnswer(el.dataset.letter));
             });
         } else {
-            document.querySelectorAll('.option').forEach(opt => {
-                opt.addEventListener('click', function() {
-                    if (testSubmitted) return;
-                    const radio = this.querySelector('input[type="radio"]');
-                    radio.checked = true;
-                    document.querySelectorAll('.option').forEach(el => el.classList.remove('selected'));
-                    this.classList.add('selected');
-                    saveAnswer(q.id, this.dataset.value);
-                });
+            document.querySelectorAll('.option-row').forEach(el => {
+                el.addEventListener('click', () => handleAnswer(el.dataset.letter));
             });
         }
-
-        renderNav();
     }
 
-    function renderNav() {
-        const list = getCurrentList();
-        let html = '';
-        list.forEach((q, idx) => {
-            const active = (idx === currentIndex) ? 'active-question' : '';
-            html += `<button class="nav-btn ${active}" data-index="${idx}">${q.id}</button>`;
-        });
-        questionNav.innerHTML = html;
-        document.querySelectorAll('.nav-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                if (testSubmitted) return;
-                const idx = parseInt(btn.dataset.index);
-                if (!isNaN(idx) && idx >= 0 && idx < list.length) {
-                    currentIndex = idx;
-                    renderQuestion();
-                    resetPerQuestionTimer();
-                }
-            });
-        });
-    }
+    // Handler jawaban normal
+    function handleAnswer(letter) {
+        if (inChallenge) {
+            handleChallengeAnswer(letter);
+            return;
+        }
+        const q = levels[currentLevel][currentQuestionIdx];
+        if (levelProgress[currentQuestionIdx]) return; // sudah dijawab
 
-    function startGlobalTimer() {
-        globalTimerInterval = setInterval(() => {
-            if (testSubmitted) return;
-            if (globalSecondsLeft > 0) {
-                globalSecondsLeft--;
-                updateGlobalTimerDisplay();
+        if (letter === q.correct) {
+            playCorrect();
+            // Benar!
+            levelProgress[currentQuestionIdx] = true;
+            totalScore++;
+            updateUI();
+
+            // Tandai elemen
+            if (q.type === 'image-choice') {
+                document.querySelectorAll('.image-opt').forEach(el => el.classList.remove('selected'));
+                document.querySelector(`.image-opt[data-letter="${letter}"]`).classList.add('selected');
             } else {
-                clearInterval(globalTimerInterval);
-                clearInterval(perQuestionInterval);
-                alert('⏰ Waktu habis! Silakan submit jawaban.');
-                submitQuiz();
+                document.querySelectorAll('.option-row').forEach(el => el.classList.remove('selected'));
+                document.querySelector(`.option-row[data-letter="${letter}"]`).classList.add('selected');
             }
-        }, 1000);
-    }
 
-    function resetPerQuestionTimer() {
-        if (testSubmitted) return;
-        perQuestionSecondsLeft = 60;
-        updatePerQuestionDisplay();
-        if (perQuestionInterval) clearInterval(perQuestionInterval);
-        perQuestionInterval = setInterval(() => {
-            if (testSubmitted) return;
-            perQuestionSecondsLeft--;
-            if (perQuestionSecondsLeft <= 0) {
-                perQuestionSecondsLeft = 0;
-                updatePerQuestionDisplay();
-                const list = getCurrentList();
-                if (currentIndex < list.length - 1) {
-                    currentIndex++;
-                    renderQuestion();
-                    resetPerQuestionTimer();
-                } else {
-                    clearInterval(perQuestionInterval);
-                }
+            // Cek apakah semua soal di level sudah selesai
+            if (levelProgress.every(v => v === true)) {
+                // Semua selesai, tampilkan tombol untuk tantangan (5 soal)
+                nextBtn.style.display = 'inline-block';
+                nextBtn.innerText = '⚔️ Hadapi 5 Tantangan!';
+                nextBtn.classList.add('challenge');
+                nextBtn.onclick = () => {
+                    inChallenge = true;
+                    challengeProgress = new Array(5).fill(false);
+                    challengeQuestionIndex = 0;
+                    renderChallenge();
+                    nextBtn.style.display = 'none';
+                };
             } else {
-                updatePerQuestionDisplay();
+                // Lanjut ke soal berikutnya yang belum dijawab
+                for (let i = 0; i < levelProgress.length; i++) {
+                    if (!levelProgress[i]) {
+                        currentQuestionIdx = i;
+                        break;
+                    }
+                }
+                renderNormalQuestion();
             }
-        }, 1000);
+        } else {
+            playWrong();
+            // Tampilkan jawaban benar dalam modal
+            const correctText = getCorrectDisplayText(q);
+            showWrongModal(`Jawaban benar: ${correctText}`);
+            // Setelah OK, reset game
+            // Tombol OK sudah di-handle di bawah
+        }
     }
 
-    function updatePerQuestionDisplay() {
-        questionTimerEl.textContent = `00:${perQuestionSecondsLeft.toString().padStart(2, '0')}`;
-    }
+    // Render tantangan kosakata (5 soal)
+    function renderChallenge() {
+        if (challengeQuestionIndex >= 5) {
+            // Semua tantangan sudah dijawab benar, naik level
+            showBalloon();
+            currentLevel++;
+            if (currentLevel >= levels.length) {
+                // MENANG!
+                gameMain.classList.add('hidden');
+                winScreen.classList.remove('hidden');
+                clearInterval(timerInterval);
+                return;
+            }
+            inChallenge = false;
+            levelProgress = new Array(levels[currentLevel].length).fill(false);
+            currentQuestionIdx = 0;
+            renderNormalQuestion();
+            updateUI();
+            return;
+        }
 
-    function submitQuiz() {
-        if (testSubmitted) return;
-        testSubmitted = true;
-        clearInterval(globalTimerInterval);
-        clearInterval(perQuestionInterval);
+        const c = challengeBank[currentLevel * 5 + challengeQuestionIndex]; // 5 soal per level
+        if (!c) return;
 
-        let correctCount = 0;
-        questions.forEach(q => { if (answers[q.id] === q.correct) correctCount++; });
+        let header = `<span>⚔️ Tantangan Level ${currentLevel+1} (${challengeQuestionIndex+1}/5)</span>`;
+        let content = `<div class="question-text">${c.question}</div>`;
+        content += `<div class="options-grid">`;
+        c.options.forEach((opt, idx) => {
+            const letter = String.fromCharCode(65 + idx);
+            content += `<div class="option-row" data-letter="${letter}"><span class="option-letter">${letter}</span><span>${opt}</span></div>`;
+        });
+        content += `</div>`;
 
-        readingScoreEl.textContent = `Reading: ${correctCount}/35`;
-        totalScoreEl.textContent = `Total: ${correctCount}/35`;
-        playerReport.textContent = `Peserta: ${playerName || 'Belum diisi'}`;
-
-        questionArea.style.display = 'none';
-        questionNav.style.display = 'none';
-        prevBtn.style.display = 'none';
+        questionBody.innerHTML = content;
         nextBtn.style.display = 'none';
-        submitBtn.style.display = 'none';
-        reportSection.classList.remove('hidden');
 
-        reviewBtn.onclick = () => {
-            let html = '<h3>❌ Jawaban Salah / Tidak Dijawab</h3>';
-            let hasWrong = false;
-            questions.forEach(q => {
-                const ans = answers[q.id];
-                if (!ans || ans !== q.correct) {
-                    hasWrong = true;
-                    html += `<div class="review-item"><strong>Soal ${q.id}</strong><br>Jawabanmu: ${ans || 'kosong'} | Seharusnya: ${q.correct}<br>${q.question.substring(0,60)}...</div>`;
-                }
-            });
-            if (!hasWrong) html += '<p>Semua jawaban benar! 🎉</p>';
-            reviewDetails.innerHTML = html;
-            reviewDetails.classList.toggle('hidden');
-        };
-
-        closeReportBtn.onclick = () => location.reload();
+        document.querySelectorAll('.option-row').forEach(el => {
+            el.addEventListener('click', () => handleChallengeAnswer(el.dataset.letter));
+        });
     }
 
-    function init() {
-        renderQuestion();
-        startGlobalTimer();
-        resetPerQuestionTimer();
-        checkAllAnswered();
+    function handleChallengeAnswer(letter) {
+        const c = challengeBank[currentLevel * 5 + challengeQuestionIndex];
+        if (letter === c.correct) {
+            playCorrect();
+            // Tandai benar
+            challengeProgress[challengeQuestionIndex] = true;
+            // Tandai elemen
+            document.querySelectorAll('.option-row').forEach(el => el.classList.remove('selected'));
+            document.querySelector(`.option-row[data-letter="${letter}"]`).classList.add('selected');
 
-        prevBtn.addEventListener('click', () => {
-            if (testSubmitted) return;
-            const list = getCurrentList();
-            if (currentIndex > 0) {
-                currentIndex--;
-                renderQuestion();
-                resetPerQuestionTimer();
+            // Pindah ke soal berikutnya
+            challengeQuestionIndex++;
+            if (challengeQuestionIndex < 5) {
+                // Tampilkan soal berikutnya setelah jeda singkat
+                setTimeout(() => renderChallenge(), 300);
+            } else {
+                // Semua 5 soal terjawab, naik level
+                setTimeout(() => {
+                    renderChallenge(); // akan masuk ke kondisi awal (challengeQuestionIndex>=5)
+                }, 300);
             }
-        });
-
-        nextBtn.addEventListener('click', () => {
-            if (testSubmitted) return;
-            const list = getCurrentList();
-            if (currentIndex < list.length - 1) {
-                currentIndex++;
-                renderQuestion();
-                resetPerQuestionTimer();
-            }
-        });
-
-        submitBtn.addEventListener('click', submitQuiz);
+        } else {
+            playWrong();
+            // Tampilkan jawaban benar
+            const correctIndex = c.correct.charCodeAt(0) - 65;
+            const correctText = `${c.correct} - ${c.options[correctIndex]}`;
+            showWrongModal(`Jawaban benar: ${correctText}`);
+            // Reset setelah OK
+        }
     }
 
-    init();
+    // Render utama
+    function render() {
+        if (inChallenge) {
+            renderChallenge();
+        } else {
+            renderNormalQuestion();
+        }
+        updateUI();
+    }
+
+    // Set nama
+    setNameBtn.addEventListener('click', () => {
+        const val = playerNameInput.value.trim();
+        if (val) playerName = val;
+        else playerName = "Ksatria";
+    });
+
+    // Tombol OK pada modal
+    wrongOkBtn.addEventListener('click', () => {
+        resetGame();
+    });
+
+    // Restart game
+    restartBtn.addEventListener('click', () => {
+        initGame();
+    });
+    timeoutRestartBtn.addEventListener('click', () => {
+        initGame();
+    });
+
+    // Mulai game pertama kali
+    initGame();
 })();
 </script>
 </body>
